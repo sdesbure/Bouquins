@@ -10,4 +10,8 @@ describe Editor do
     Editor.should have_property(:created_at)
     Editor.should have_property(:updated_at)
   end
+
+  it "should have relationships" do
+    Editor.should have_many(:editions)
+  end
 end

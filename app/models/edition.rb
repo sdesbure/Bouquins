@@ -11,4 +11,5 @@ class Edition
   # property :updated_on, Date
 
   belongs_to :book
+  belongs_to :editor
 end
