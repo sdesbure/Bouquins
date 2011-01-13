@@ -12,5 +12,6 @@ class Book
 
   has n, :authors, :through => Resource
   has n, :editions
+  has n, :editors, :through => :editions
 
 end

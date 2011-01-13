@@ -13,5 +13,6 @@ describe Book do
   it "should have relationships" do
     Book.should have_many(:authors)
     Book.should have_many(:editions)
+    Book.should have_many(:editors)
   end
 end

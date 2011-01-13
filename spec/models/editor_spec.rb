@@ -13,5 +13,6 @@ describe Editor do
 
   it "should have relationships" do
     Editor.should have_many(:editions)
+    Editor.should have_many(:books)
   end
 end
