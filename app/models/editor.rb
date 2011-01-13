@@ -6,12 +6,10 @@ class Editor
   property :website, URI
   property :logo, URI
   property :wikipedia_url, URI
-
-
   property :created_at, DateTime
   # property :created_on, Date
- 
   property :updated_at, DateTime
   # property :updated_on, Date
 
+  has n, :editions
 end

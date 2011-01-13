@@ -12,5 +12,6 @@ describe Edition do
 
   it "should have relationships" do
     Edition.should belong_to(:book)
+    Edition.should belong_to(:editor)
   end
 end
