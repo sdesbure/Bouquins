@@ -12,4 +12,5 @@ class Editor
   # property :updated_on, Date
 
   has n, :editions
+  has n, :books, :through => :editions
 end
