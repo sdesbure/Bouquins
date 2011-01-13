@@ -9,5 +9,6 @@ class Book
   # property :updated_on, Date
 
   has n, :authors, :through => Resource
+  has n, :editions
 
 end

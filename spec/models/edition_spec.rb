@@ -9,4 +9,8 @@ describe Edition do
     Edition.should have_property(:created_at)
     Edition.should have_property(:updated_at)
   end
+
+  it "should have relationships" do
+    Edition.should belong_to(:book)
+  end
 end

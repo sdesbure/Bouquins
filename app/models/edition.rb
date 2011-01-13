@@ -10,4 +10,5 @@ class Edition
   property :updated_at, DateTime
   # property :updated_on, Date
 
+  belongs_to :book
 end

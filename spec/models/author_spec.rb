@@ -11,4 +11,8 @@ describe Author do
     Author.should have_property(:created_at)
     Author.should have_property(:updated_at)
   end
+
+  it "should have relationships" do
+    Author.should have_many(:books)
+  end
 end
