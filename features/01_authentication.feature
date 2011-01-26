@@ -5,5 +5,16 @@ Feature: Authentication
 
   Scenario: sign in
     Given I am a new, authenticated user
-    Then I should be on the user's show page
-    And I should see "Bienvenue, Sylvain"
+    Then show me the page
+    Then I should see "Testing man"
+    And I should see "Déconnexion"
+
+  Scenario: sign out
+    Given I am a new, authenticated user
+    When I follow "Déconnexion"
+    Then I should see "Connexion"
+
+  Scenario: sign in link
+    Given I am on the home page
+    Then I should see "Connexion"
+
