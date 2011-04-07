@@ -11,3 +11,7 @@ Feature: Authentication
     Given I am a new, authenticated user
     When I follow "Déconnexion"
     Then I should see "Connexion"
+
+  Scenario: sign in link
+    Given I am on the home page
+    Then I should see "Connexion"
