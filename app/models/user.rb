@@ -1,20 +1,10 @@
-class User
-  include DataMapper::Resource
-  include DataMapper::MassAssignmentSecurity
+class User  < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
-  property :id, Serial
-  property :login, String
-  property :created_at, DateTime
-  # property :created_on, Date
-  property :updated_at, DateTime
-  # property :updated_on, Date
-  #
-  attr_accessible :email, :login, :password, :password_confirmation
-
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
 
 end

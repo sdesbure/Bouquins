@@ -1,18 +1,11 @@
 require 'spec_helper'
 
 describe Author do
-  it "should have some properties" do
-    Author.should have_property(:id)
-    Author.should have_property(:name)
-    Author.should have_property(:first_name)
-    Author.should have_property(:nickname)
-    Author.should have_property(:wikipedia_url)
-    Author.should have_property(:image_url)
-    Author.should have_property(:created_at)
-    Author.should have_property(:updated_at)
-  end
+  should_have_column :name, :type => :string
+  should_have_column :first_name, :type => :string
+  should_have_column :nickname, :type => :string
+  should_have_column :wikipedia_url, :type => :string
+  should_have_column :image_url, :type => :string
 
-  it "should have relationships" do
-    Author.should have_many(:books)
-  end
+  should_have_and_belong_to_many :books
 end
