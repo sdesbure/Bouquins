@@ -1,17 +1,8 @@
-class Book
-  include DataMapper::Resource
+class Book  < ActiveRecord::Base
 
-  property :id, Serial
-  property :name, String
-  property :description, Text
-  property :wikipedia_url, URI
-  property :created_at, DateTime
-  # property :created_on, Date
-  property :updated_at, DateTime
-  # property :updated_on, Date
 
-  has n, :authors, :through => Resource
-  has n, :editions
-  has n, :editors, :through => :editions
+  has_and_belongs_to_many :authors
+  has_many :editions
+  has_many :editors, :through => :editions
 
 end

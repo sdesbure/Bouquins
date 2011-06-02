@@ -1,18 +1,12 @@
 require 'spec_helper'
 
 describe Editor do
-  it "should have some properties" do
-    Editor.should have_property(:id)
-    Editor.should have_property(:name)
-    Editor.should have_property(:website)
-    Editor.should have_property(:logo)
-    Editor.should have_property(:wikipedia_url)
-    Editor.should have_property(:created_at)
-    Editor.should have_property(:updated_at)
-  end
+  should_have_column :id, :type => :integer
+  should_have_column :name, :type => :string
+  should_have_column :website, :type => :string
+  should_have_column :logo, :type => :string
+  should_have_column :wikipedia_url, :type => :string
 
-  it "should have relationships" do
-    Editor.should have_many(:editions)
-    Editor.should have_many(:books)
-  end
+  should_have_many :editions
+  should_have_many :books, :through => :editions
 end

@@ -1,17 +1,11 @@
 require 'spec_helper'
 
 describe Edition do
-  it "should have some properties" do
-    Edition.should have_property(:id)
-    Edition.should have_property(:isbn)
-    Edition.should have_property(:image_url)
-    Edition.should have_property(:year)
-    Edition.should have_property(:created_at)
-    Edition.should have_property(:updated_at)
-  end
+  should_have_column :id, :type => :integer
+  should_have_column :isbn, :type => :string
+  should_have_column :image_url, :type => :string
+  should_have_column :year, :type => :date
 
-  it "should have relationships" do
-    Edition.should belong_to(:book)
-    Edition.should belong_to(:editor)
-  end
+  should_belong_to :book
+  should_belong_to :editor
 end
