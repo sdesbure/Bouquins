@@ -10,7 +10,7 @@
       %td= read_book.title
       %td= read_book.author
 - if @more_than_5_read
-  Voir tous les livres lus
+  = link_to 'Voir tous les livres lus', user_read_books_path(@user)
 
 -# = link_to 'Edit', edit_user_path(@user)
 -# \|
