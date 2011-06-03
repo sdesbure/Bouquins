@@ -1,7 +1,7 @@
 class CreateBooks < ActiveRecord::Migration
   def self.up
     create_table :books do |t|
-      t.string :name
+      t.string :title
       t.text :description
       t.string :wikipedia_url
 

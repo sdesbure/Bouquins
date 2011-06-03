@@ -14,7 +14,8 @@ Given /^I am a new, authenticated user$/ do
   login = 'Testing man'
   password = 'secretpass'
 
-  Given %{I have one user "#{email}" with password "#{password}" and login "#{login}"}
+  Given %{a user exists with email: "#{email}", password: "#{password}"}
+  And %{I am not authenticated}
   And %{I am on the home page}
   And %{I follow "Connexion"}
   And %{I fill in "user_email" with "#{email}"}
