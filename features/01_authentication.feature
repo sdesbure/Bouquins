@@ -1,3 +1,4 @@
+@http://www.pivotaltracker.com/story/show/904396 @book
 Feature: Authentication
   In order to retrieve my personal data
   As an user

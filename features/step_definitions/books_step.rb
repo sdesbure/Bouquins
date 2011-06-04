@@ -14,4 +14,22 @@ Given /^I've read the following books:$/ do |table|
   end
 end
 
+Given /^I own the book "([^"]*)"$/ do |book_name|
+  book = Book.where(:title => book_name).first
+  book.should_not be nil
+  user = User.first
+  user.books << book
+  user.save.should be_true
+  book.reload
+  book.users.should include user
+end
+
+
+Given /^I own the following books:$/ do |table|
+  # table is a Cucumber::Ast::Table
+  table.hashes.each do |row|
+    Given "I own the book \"#{row["title"]}\""
+  end
+end
+
 

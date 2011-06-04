@@ -12,6 +12,19 @@
 - if @more_than_5_read
   = link_to 'Voir tous les livres lus', user_read_books_path(@user)
 
+%h2 5 derniers livres achetés
+%table
+  %tr
+    %th Titre
+    %th Auteur
+  - @books.each do |book|
+    %tr
+      %td= book.title
+      %td= book.author
+- if @more_than_5_owned
+  = link_to 'Voir tous les livres m\'appartenant', user_owned_books_path(@user)
+
+
 -# = link_to 'Edit', edit_user_path(@user)
 -# \|
 -# = link_to 'Back', users_path
