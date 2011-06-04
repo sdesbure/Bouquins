@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%h2 livres m'appartenant
+%table
+  %tr
+    %th Titre
+    %th Auteur
+  - @books.each do |book|
+    %tr
+      %td= book.title
+      %td= book.author
+
+= link_to 'Retour', user_path(@user)
