@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%h2 livres lus
+%table
+  %tr
+    %th Titre
+    %th Auteur
+  - @read_books.each do |read_book|
+    %tr
+      %td= read_book.title
+      %td= read_book.author
+
+= link_to 'Retour', user_path(@user)
