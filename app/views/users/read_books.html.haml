@@ -5,9 +5,16 @@
   %tr
     %th Titre
     %th Auteur
+    %th
   - @read_books.each do |read_book|
     %tr
       %td= read_book.title
       %td= read_book.author
+      %td 
+        - unless @user.books.include? read_book 
+          = form_tag owned_book_user_path(@user) do
+            = hidden_field_tag 'owned_book[book_id]', "#{read_book.id}", :id => "owned_book_book_id"
+            = submit_tag "Marquer ce livre comme possédé"
+
 
 = link_to 'Retour', user_path(@user)

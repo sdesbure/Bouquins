@@ -5,9 +5,17 @@
   %tr
     %th Titre
     %th Auteur
+    %th
   - @books.each do |book|
     %tr
       %td= book.title
       %td= book.author
+      %td 
+        - unless @user.read_books.include? book
+          = form_tag readings_path do
+            = hidden_field_tag 'reading[read_book_id]', "#{book.id}", :id => "reading_read_book_id"
+            = hidden_field_tag 'reading[reader_id]', "#{@user.id}", :id => "reading_reader_id"
+            = submit_tag "Marquer ce livre comme lu"
+
 
 = link_to 'Retour', user_path(@user)
