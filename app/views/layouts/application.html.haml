@@ -2,14 +2,24 @@
 %html
   %head
     %title Bouquins
-    = stylesheet_link_tag :all
-    = stylesheet_link_tag :flutie, :cache => true
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    /[if IE]
+      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag "application"
     = javascript_include_tag :defaults
     = csrf_meta_tag
+    %style 
   %body
-    %p.notice= notice
-    %p.alert= alert
-    %ul#menu
-      = render 'devise/menu/login_menu'
-      = render 'devise/menu/registration_menu'
-    = yield
+    .two-col
+      #header
+        %ul
+          = render 'devise/menu/login_menu'
+          = render 'devise/menu/registration_menu'
+        - [:notice, :alert, :error, :info, :success].each do |feedback|
+          - unless flash[feedback].nil?
+            %p{:class => feedback.to_s}= flash[feedback]
+      #content
+        = yield
+      #footer
+        Bouquins
