@@ -1,7 +1,7 @@
 class CreateReadings < ActiveRecord::Migration
   def self.up
     create_table :readings do |t|
-      t.references :read_book
+      t.references :read_edition
       t.references :reader
       t.datetime :start_read
       t.datetime :end_read
