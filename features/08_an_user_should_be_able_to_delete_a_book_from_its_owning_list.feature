@@ -12,7 +12,7 @@ Feature: An user should be able to delete a book from its owning list
     When I go to the user's owned_books page
     Then I should see "Pro Git"
     And I should see "Enlever"
-  
+
   @passed
   Scenario: Follow the remove link for owned books
     Given I am a new, authenticated user
