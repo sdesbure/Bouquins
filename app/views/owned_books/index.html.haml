@@ -7,6 +7,7 @@
     %th Titre
     %th Auteur
     %th
+    %th
   - @owned_editions.each do |owned_edition|
     %tr
       %td= image_tag owned_edition.image_url unless owned_edition.image_url.nil?
@@ -18,5 +19,7 @@
             = hidden_field_tag 'reading[read_edition_id]', "#{owned_edition.id}", :id => "reading_read_edition_id"
             = hidden_field_tag 'reading[reader_id]', "#{@user.id}", :id => "reading_reader_id"
             = submit_tag "Je l'ai lu"
+      %td
+        = link_to 'Enlever', user_owned_book_path(@user,owned_edition), :confirm => "Êtes-vous sur ?", :method => :delete
 
 = link_to 'Retour', user_path(@user)
