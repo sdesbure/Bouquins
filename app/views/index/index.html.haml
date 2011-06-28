@@ -1,7 +1,8 @@
-%h2 Rechercher un livre
-= form_tag(search_books_path, :method => "get") do 
-  = text_field_tag(:q) 
-  = submit_tag("Rechercher") 
+#search
+  %h2 Rechercher un livre
+  = form_tag(search_books_path, :method => "get") do 
+    = text_field_tag(:q) 
+    = submit_tag("Rechercher") 
 
 #left-table
   %h2 5 livres les plus lus

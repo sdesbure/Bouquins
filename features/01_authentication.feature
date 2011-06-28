@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 @http://www.pivotaltracker.com/story/show/904396 @book
 Feature: Authentication
   In order to retrieve my personal data
@@ -8,7 +9,7 @@ Feature: Authentication
   Scenario: sign in
     Given I am a new, authenticated user
     Then I should see "Déconnexion"
-  
+
   @passed
   Scenario: sign out
     Given I am a new, authenticated user

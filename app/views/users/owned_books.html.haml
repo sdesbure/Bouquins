@@ -9,7 +9,7 @@
     %th
   - @owned_editions.each do |owned_edition|
     %tr
-      %td= image_tag owned_edition.image_url
+      %td= image_tag owned_edition.image_url unless owned_edition.image_url.nil?
       %td= owned_edition.book.title
       %td= owned_edition.book.author
       %td 
