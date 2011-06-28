@@ -5,7 +5,7 @@
         %li{:class => "current"}= link_to "Mes livres lus", read_books_user_path(current_user)
       - else
         %li= link_to "Mes livres lus", read_books_user_path(current_user)
-      - if request.env['REQUEST_PATH'] == owned_books_user_path(current_user)
-        %li{:class => "current"}= link_to "Mes livres", owned_books_user_path(current_user)
+      - if request.env['REQUEST_PATH'] == user_owned_books_path(current_user)
+        %li{:class => "current"}= link_to "Mes livres", user_owned_books_path(current_user)
       - else
-        %li= link_to "Mes Livres", owned_books_user_path(current_user)
+        %li= link_to "Mes Livres", user_owned_books_path(current_user)

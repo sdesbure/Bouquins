@@ -5,3 +5,4 @@ tmp/**/*
 *.swp
 config/initializers/amazon.rb
 config/recaptcha.rb
+rerun.txt
