@@ -7,3 +7,4 @@ config/initializers/amazon.rb
 config/recaptcha.rb
 rerun.txt
 db/memory/test.sqlite3
+config/newrelic.yml
