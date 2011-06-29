@@ -1,0 +1,21 @@
+$blueprint-grid-columns       : 24 ;
+$blueprint-grid-width         : 35px ;
+$blueprint-grid-margin        : 10px ;
+$font-color                   : #C6C6C6 ;
+$blueprint-background-color   : #4D4646 ;
+$blueprint-border-color       : #121212 ;
+$taupe                        : #6E5B48 ;
+$silk                         : #B8AC9C ;
+$brown                        : #330000 ;
+$base-font-size               : 15px ;
+$base-line-height             : 20px ;
+$default-rhythm-border-style  : solid ;
+
+
+
+@import "compass/reset" ;
+@import "compass/utilities" ;
+@import "compass/typography/vertical_rhythm" ;
+@import "blueprint" ;
+@import "rounded" ;
+@import "compass/css3" ;

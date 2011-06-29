@@ -1,0 +1,26 @@
+= render "/users/sub_nav"
+
+%h2 livres lus
+%table.table
+  %tr
+    %th Image
+    %th Titre
+    %th Auteur
+    %th
+    %th
+  - @read_editions.each do |read_edition|
+    %tr
+      %td= image_tag read_edition.image_url unless read_edition.image_url.nil?
+      %td= read_edition.book.title
+      %td= read_edition.book.author
+      %td 
+        - unless @user.owned_editions.include? read_edition 
+          = form_tag ownings_path do
+            = hidden_field_tag 'owning[owned_edition_id]', "#{read_edition.id}", :id => "owning_owned_edition_id"
+            = hidden_field_tag 'owning[owner_id]', "#{@user.id}", :id => "owning_owner_id"              
+            = submit_tag "Je le possède"
+          = form_tag 
+      %td
+        = link_to 'Enlever', user_read_book_path(@user,read_edition), :confirm => "Êtes-vous sur ?", :method => :delete
+
+= link_to 'Retour', user_path(@user)

@@ -1,0 +1,7 @@
+- if user_signed_in?
+  %li
+    #{current_user.email} |
+    = link_to('Déconnexion', destroy_user_session_path)
+- else
+  %li
+    = link_to('Connexion', new_user_session_path)
