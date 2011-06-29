@@ -1,6 +1,6 @@
 @http://www.pivotaltracker.com/story/show/15129233 @book
 Feature: An user should be able to delete a book from its owning list
-  In order to remove from the read book list a book I've actually not owned
+  In order to remove from the owned book list a book I've actually not owned
   As a customer
   I want to be able to remove a book from the owned book list
 
