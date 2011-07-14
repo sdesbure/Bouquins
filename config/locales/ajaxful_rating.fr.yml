@@ -1,0 +1,6 @@
+fr:
+  ajaxful_rating:
+    helper:
+      global_average: "Note moyenne : %{value} sur %{max}"
+      user_rating: "Votre note : %{value} sur %{max}"
+      hover: "Noter %{value} sur %{max}"

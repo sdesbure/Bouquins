@@ -1,0 +1,16 @@
+en:
+  recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
+  devise:
+    passwords:
+      forgot_password: "Forgot your password?"
+    menu:
+      sign_in: "Sign in"
+      sign_out: "Sign out"
+      sign_up: "Sign up"
+    registrations:
+      recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
+      unhappy?: "Unhappy?"
+      sign_in: "Sign in"
+      sign_out: "Sign out"
+      sign_up: "Sign up"
+

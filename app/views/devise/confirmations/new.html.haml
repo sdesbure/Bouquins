@@ -1,4 +1,4 @@
-%h2 Resend confirmation instructions
+%h2= t "devise.confirmations.resend_instructions"
 
 = form_for(resource, :as => resource_name,                    
                     :url => confirmation_path(resource_name), 
@@ -11,6 +11,6 @@
     %br/
     = f.email_field :email
   
-  %p= f.submit "Resend confirmation instructions"
+  %p= f.submit t("devise.confirmations.resend_instructions")
 
 = render :partial => "devise/shared/links"
