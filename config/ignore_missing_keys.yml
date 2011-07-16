@@ -1,0 +1,19 @@
+# Utilized with rake i18n:missing_keys
+
+en:
+- "activerecord.*"
+- "false"
+- "true"
+- "attributes.*"
+- "date.*"
+- "number.*"
+- "i18n.transliterate*"
+- "time.formats.*"
+
+fr:
+- "date.*"
+- "number.*"
+- "i18n.transliterate*"
+- "time.*"
+- "support.*"
+- "locale.*"
