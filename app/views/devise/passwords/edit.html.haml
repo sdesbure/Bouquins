@@ -1,4 +1,4 @@
-%h2 Change your password
+%h2= t "devise.passwords.change_your_password"
 
 = form_for(resource, :as => resource_name, 
                     :url => password_path(resource_name), 
@@ -7,16 +7,16 @@
   = f.hidden_field :reset_password_token
 
   %p
-    = f.label :password, "New password"
+    = f.label :password, t("devise.passwords.new_password")
     %br/
     = f.password_field :password
 
   %p
-    = f.label :password_confirmation, "Confirm new password"
+    = f.label :password_confirmation, t("devise.passwords.confirm_new_password")
     %br/
     = f.password_field :password_confirmation
 
-  %p= f.submit "Change my password"
+  %p= f.submit t("devise.passwords.change_my_password")
 
 = render :partial => "devise/shared/links"
 

@@ -1,4 +1,4 @@
-%h2 Resend unlock instructions
+%h2= t "devise.unlocks.resend_instructions"
 
 = form_for(resource, :as => resource_name, 
                     :url => unlock_path(resource_name), 
@@ -10,6 +10,6 @@
     %br/
     = f.email_field :email
 
-  %p= f.submit "Resend unlock instructions"
+  %p= f.submit t "devise.unlocks.resend_instructions"
 
 = render :partial => "devise/shared/links"
