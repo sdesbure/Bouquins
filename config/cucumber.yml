@@ -8,4 +8,4 @@ wip: --drb --tags @wip:4 --wip features --tags ~@javascript
 rerun: --drb <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip
 js: --tags @javascript --format pretty features
 wipjs: --tags @javascript  --tags @wip:4 --wip features
-guard: <%= "--format #{ENV['CUCUMBER_FORMAT'] || 'Cucumber::Formatter::Fuubar'}" %> --strict --tags ~@wip --tags ~@javascript --drb
+guard: --format Cucumber::Formatter::Fuubar --strict --tags ~@wip --tags ~@javascript --drb
