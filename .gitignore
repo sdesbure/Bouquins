@@ -4,6 +4,4 @@ log/*.log
 tmp/**/*
 *.swp
 rerun.txt
-db/memory/test.sqlite3
-db/memory/*
 .sass-cache/
