@@ -1,17 +1,17 @@
 require 'spec_helper'
 
 describe Edition do
-  should_have_column :id, :type => :integer
-  should_have_column :isbn10, :type => :string
-  should_have_column :image_url, :type => :string
-  should_have_column :year, :type => :date
-  should_have_column :readings_count, :type => :integer
-  should_have_column :ownings_count, :type => :integer
+  it { should have_db_column(:id).of_type(:integer) }
+  it { should have_db_column(:isbn10).of_type(:string) }
+  it { should have_db_column(:image_url).of_type(:string) }
+  it { should have_db_column(:year).of_type(:date) }
+  it { should have_db_column(:readings_count).of_type(:integer) }
+  it { should have_db_column(:ownings_count).of_type(:integer) }
 
-  should_belong_to :book, :counter_cache => true
-  should_belong_to :editor
-  should_have_many :readers, :through => :readings, :class_name => "User"
-  should_have_many :readings, :foreign_key => "read_edition_id"
-  should_have_many :ownings, :foreign_key => "owned_edition_id"
-  should_have_many :owners, :through => :ownings, :class_name => "User"
+  it { should belong_to :book }
+  it { should belong_to :editor }
+  it { should have_many(:readers).through(:readings).class_name("User") }
+  it { should have_many :readings }
+  it { should have_many :ownings }
+  it { should have_many(:owners).through(:ownings).class_name("User") }
 end

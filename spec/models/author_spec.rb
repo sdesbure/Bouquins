@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Author do
-  should_have_column :name, :type => :string
-  should_have_column :wikipedia_url, :type => :string
-  should_have_column :image_url, :type => :string
+  it { should have_db_column(:name).of_type(:string) }
+  it { should have_db_column(:wikipedia_url).of_type(:string) }
+  it { should have_db_column(:image_url).of_type(:string) }
 
-  should_have_and_belong_to_many :books
+  it { should have_and_belong_to_many :books }
 
 end
