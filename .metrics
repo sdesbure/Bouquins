@@ -1,0 +1,4 @@
+MetricFu::Configuration.run do |config|
+  config.rcov[:external] = 'coverage/rcov/rcov.txt'
+  config.syntax_highlighting = false
+end

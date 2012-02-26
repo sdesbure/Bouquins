@@ -8,15 +8,15 @@ Feature: Authentication
   @passed
   Scenario: sign in
     Given I am a new, authenticated user
-    Then I should see "Déconnexion"
+    Then I should see "Se déconnecter"
 
   @passed
   Scenario: sign out
     Given I am a new, authenticated user
-    When I follow "Déconnexion"
-    Then I should see "Connexion"
+    When I follow "Se déconnecter"
+    Then I should see "Se connecter"
 
   @passed
   Scenario: sign in link
     Given I am on the home page
-    Then I should see "Connexion"
+    Then I should see "Se connecter"
