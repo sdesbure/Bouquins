@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Editor do
-  should_have_column :id, :type => :integer
-  should_have_column :name, :type => :string
-  should_have_column :website, :type => :string
-  should_have_column :logo, :type => :string
-  should_have_column :wikipedia_url, :type => :string
+  it { should have_db_column(:id).of_type(:integer) }
+  it { should have_db_column(:name).of_type(:string) }
+  it { should have_db_column(:website).of_type(:string) }
+  it { should have_db_column(:logo).of_type(:string) }
+  it { should have_db_column(:wikipedia_url).of_type(:string) }
 
-  should_have_many :editions
-  should_have_many :books, :through => :editions
+  it { should have_many :editions }
+  it { should have_many(:books).through(:editions) }
 end

@@ -14,4 +14,14 @@ class User  < ActiveRecord::Base
   has_many :ownings, :foreign_key => "owner_id"
   has_many :owned_editions, :through => :ownings, :class_name => "Edition"
 
+  def edition(book)
+    editions = (read_editions + owned_editions).uniq{|e| e.id}
+    editions.each do |edition|
+      if edition.book.id == book.id
+        return edition
+      end
+    end
+    return nil
+  end
+
 end

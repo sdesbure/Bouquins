@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe User do
-  should_have_many :owned_editions, :through => :ownings
-  should_have_many :ownings, :foreign_key => "owner_id"
-  should_have_many :readings, :foreign_key => "reader_id"
-  should_have_many :read_editions, :through => :readings, :class_name => "Edition"
-  should_have_column :readings_count, :type => :integer
+  it { should have_db_column(:readings_count).of_type(:integer) }
+  it { should have_many(:read_editions).through(:readings).class_name("Edition") }
+  it { should have_many(:owned_editions).through(:ownings).class_name("Edition") }
+  it { should have_many(:ownings) }
+  it { should have_many(:readings) }
 end
