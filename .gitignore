@@ -5,3 +5,4 @@ tmp/**/*
 *.swp
 rerun.txt
 .sass-cache/
+db/memory/test.sqlite3
