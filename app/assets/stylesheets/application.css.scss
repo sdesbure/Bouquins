@@ -3,8 +3,9 @@
  *
  * Important! Do *not* use Sprockets "require" syntax.
  * Use @import to include other stylesheets and Compass mixins.
+ *= require_self
+ *= require ajaxful_rating
  */
 
 @import "base";
 @import "user";
-
