@@ -1,0 +1,30 @@
+fr:
+  users:
+    recaptcha_error: "Il y a une erreur avec ce qui a été entré. Merci de re-rentrer les données."
+  devise:
+    confirmations:
+      send_paranoid_instructions: "Si vous adresse e-mail existe dans notre base, vous allez recevoir dans quelques minutes un message expliquant comment confirmer votre compte"
+    failure:
+      already_authenticated: "Vous êtes déjà connecté"
+    passwords:
+      forgot_password: "Vous avez oublié votre mot de passe ?"
+      send_paranoid_instructions: "Si vous adresse e-mail existe dans notre base, vous allez recevoir un lien pour retrouver votre mot de passe dans votre boîte aux lettres"
+    menu:
+      registration_menu:
+        edit: "Editer le compte"
+        sign_up: "S'enregistrer"
+      login_menu:
+        sign_in: "Se connecter"
+        sign_out: "Se déconnecter"
+    registrations:
+      recaptcha_error: "Il y a une erreur avec ce qui a été entré. Merci de re-rentrer les données."
+      unhappy?: "Mécontent ?"
+      sign_in: "Se connecter"
+      sign_up: "S'enregistrer"
+      sign_out: "Se déconnecter"
+    mailer:
+      confirm_my_account: "Vous pouvez confirmer votre compte en utilisant le lien ci-dessous :"
+    unlocks:
+      send_paranoid_instructions: "Si votre compte existe, vous allez recevoir dans quelques minutes un message expliquant comment le débloquer"
+
+

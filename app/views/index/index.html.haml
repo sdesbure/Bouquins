@@ -1,0 +1,81 @@
+#search
+  %h2 Rechercher un livre
+  = form_tag(search_books_path, :method => "get") do 
+    = text_field_tag(:q) 
+    = submit_tag("Rechercher") 
+
+#left-table
+  %h2 5 livres les plus lus
+  %table.table
+    %tr
+      %th Titre
+      %th Auteur
+      %th Lu
+      - if user_signed_in?
+        %th Ma Note
+      %th Moyenne
+      %th
+    - @most_read_books.each do |book|
+      %tr
+        %td= book.title
+        %td= book.author
+        %td= book.read_count
+        - if user_signed_in?
+          %td
+            - if current_user.read_editions.map{|re| re.book}.include? book
+              = ratings_for book, :show_user_rating => true, :size => "small"
+        %td= ratings_for book, :static, :size => "small"
+        %td
+          - unless user_signed_in? && current_user.owned_editions.map{|re| re.book}.include?(book)
+            = link_to "L'acheter", book.editions.order("price ASC").first.amazon_url unless book.editions.empty?
+
+#right-table
+  %h2 5 livres les plus achetés
+  %table.table
+    %tr
+      %th Titre
+      %th Auteur
+      %th Possédé
+      - if user_signed_in?
+        %th Ma Note
+      %th Moyenne
+      %th
+    - @most_owned_books.each do |book|
+      %tr
+        %td= book.title
+        %td= book.author
+        %td= book.owned_count
+        - if user_signed_in?
+          %td
+            - if current_user.read_editions.map{|re| re.book}.include? book
+              = ratings_for book, :show_user_rating => true, :size => "small"
+        %td= ratings_for book, :static, :size => "small"
+        %td
+          - unless user_signed_in? && current_user.owned_editions.map{|re| re.book}.include?(book)
+            = link_to "L'acheter", book.editions.order("price ASC").first.amazon_url unless book.editions.empty?
+
+#news
+  %h2 News
+  %span.date 26 Février 2012
+  %h3 Mise à jour du backend
+  %p.article
+    Le site est passé de Rails 3.0 à Rails 3.2. Ca devrait améliorer les temps de réponses. De plus, les adminstrateurs ont maintenant une page pour eux. Prochain changement : les amis
+  %span.date 01 Novembre 2011
+  %h3 Résolution d'un bug
+  %p.article
+    La recherche avec Amazon ne marchait plus (Amazon a changé son API). Maintenant ça remarche :)
+  %span.date 16 Juillet 2011
+  %h3 Petites retouches
+  %p.article
+    Quelques retouches sont mises en place pour cette mise à jour : tout le texte est en français, ajout d'une icone pour le site. La prochaine mise à jour portera sur la possibilité d'aller acheter les livres sur Amazon.
+  %span.date 02 Juillet 2011
+  %h3 Note pour les livres
+  %p.article
+    Petite mise à jour qui permet aux gens de noter les livres qu'ils ont lus et de voir la note moyenne des livres dans les différents écrans du site
+  %span.date 29 Juin 2011
+  %h3 Mise à Disposition du site
+  %p.article
+    Le site est mis en ligne aujourd'hui!.
+    %br/
+    Pour le moment, seul les fonctions d'ajout de livre dans une liste (lue ou possédé) sont disponibles mais de nouvelles fonctions devraient arriver!
+

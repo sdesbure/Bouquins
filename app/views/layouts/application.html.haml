@@ -1,0 +1,47 @@
+!!!
+%html
+  %head
+    %title Bouquins
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    /[if IE]
+      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = ajaxful_rating_style
+    = csrf_meta_tag
+    %style 
+  %body
+    .wrap
+      #top-nav
+        %ul
+          %li= render 'devise/menu/registration_menu'
+          %li= render 'devise/menu/login_menu'
+      #header
+        %nav.main-nav{:role => "navigation"}
+          %ul
+            - if request.env['REQUEST_PATH'] == root_path
+              %li{:class => "current"}= link_to "Bouquin", root_path
+            - else
+              %li= link_to "Bouquin", root_path
+            - if user_signed_in?
+              - if request.env['REQUEST_PATH'] == user_path(current_user)
+                %li{:class => "current"}= link_to "Ma Page", user_path(current_user)
+              - else
+                %li= link_to "Ma Page", user_path(current_user)
+            - if request.env['REQUEST_PATH'] == books_path
+              %li{:class => "current"}= link_to "Livres", books_path
+            - else
+              %li= link_to "Livres", books_path
+            - if request.env['REQUEST_PATH'] == authors_path
+              %li{:class => "current"}= link_to "Auteurs", authors_path
+            - else
+              %li= link_to "Auteurs", authors_path
+      #content
+        #feedback
+          - [:notice, :alert, :error, :info, :success].each do |feedback|
+            - unless flash[feedback].nil?
+              %p{:class => feedback.to_s}= flash[feedback]
+        = yield
+      #footer
+        Bouquins

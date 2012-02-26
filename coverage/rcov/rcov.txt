@@ -1,0 +1,671 @@
+metric_fu shift the first line
+================================================================================
+ ./app/admin/authors.rb
+================================================================================
+   ActiveAdmin.register Author do
+     index do
+!!     column :name
+!!     column :nickname
+!!     column :wikipedia_url
+!!     column :image_url
+!!     default_actions
+     end
+   
+     show do
+!!     attributes_table *default_attribute_table_rows
+   #    default_main_content
+!!     div :class => "panel" do
+!!       h3 "Author's books"
+!!       div :class => "panel_contents" do
+!!         table_for(author.books, {:class => "index_table"}) do
+!!           column :title
+!!           column :description
+!!           column :wikipedia_url
+!!           column :rating_average
+!!           column "" do |book|
+!!             link_to(I18n.t('active_admin.view'), admin_book_path(book), :class => "member_link view_link")
+             end
+           end
+         end
+       end
+     end
+   
+   end
+
+================================================================================
+ ./app/admin/books.rb
+================================================================================
+   ActiveAdmin.register Book do
+     index do
+!!     column :title
+!!     column :description
+!!     column :rating_average
+!!     column :wikipedia_url
+!!     default_actions
+     end
+     
+     show do
+!!     attributes_table *default_attribute_table_rows
+!!     div :class => "panel" do
+!!       h3 "Book's authors"
+!!       div :class => "panel_contents" do
+!!         table_for(book.authors, {:class => "index_table"}) do
+!!           column :name do |author|
+!!             link_to author.name,  admin_author_path(author), :class => "member_link view_link"
+             end
+!!           column :nickname
+!!           column :wikipedia_url
+!!           column :image_url
+           end
+         end
+       end
+   
+!!     unless book.readers.empty?
+!!       div :class => "panel" do
+!!         h3 "Book's readers"
+!!         div :class => "panel_contents" do
+!!           table_for(book.readers, {:class => "index_table"}) do
+!!             column :email do |user|
+!!               link_to user.email, admin_user_path(user)
+               end
+!!             column I18n.t(:edition) do |user|
+!!               link_to user.edition(book).isbn13, admin_edition_path(user.edition(book)), :class => "member_link view_link" unless user.edition(book).nil?
+               end
+!!             column I18n.t(:rate) do |user|
+!!               book.rate_by(user)
+               end
+             end
+           end
+         end
+       end
+   
+!!     unless book.owners.empty?
+!!       div :class => "panel" do
+!!         h3 "Book's owners"
+!!         div :class => "panel_contents" do
+!!           table_for(book.owners, {:class => "index_table"}) do
+!!             column :email
+!!             column I18n.t(:edition) do |user|
+!!               link_to user.edition(book).isbn13, admin_edition_path(user.edition(book)), :class => "member_link view_link" unless user.edition(book).nil?
+               end
+!!             column I18n.t(:rate) do |user|
+!!               book.rate_by(user)
+               end
+             end
+           end
+         end
+       end
+   
+!!     div :class => "panel" do
+!!       h3 "Book's editions"
+!!       div :class => "panel_contents" do
+!!         table_for(book.editions, {:class => "index_table"}) do
+!!           column :isbn13 do |edition|
+!!             link_to edition.isbn13, admin_edition_path(edition), :class => "member_link view_link"
+             end
+!!           column :editor do |edition|
+!!             link_to edition.editor.name, admin_editor_path(edition.editor), :class => "member_link view_link" unless edition.editor.nil?
+             end
+!!           column :image_url do |edition|
+!!             image_tag edition.image_url
+             end
+!!           column :year
+!!           column :price do |edition|
+!!             case edition.currency
+               when "EUR"
+!!               number_to_currency edition.price, :unit => "&euro;"
+               else
+!!               edition.price
+               end
+             end
+           end
+         end
+       end
+   
+!!     div :class => "panel" do
+!!       h3 "Book's editors"
+!!       div :class => "panel_contents" do
+!!         table_for(book.editors, {:class => "index_table"}) do
+!!           column :name do |editor|
+!!             link_to editor.name, admin_editor_path(editor),  :class => "member_link view_link"
+             end
+!!           column :logo do |editor|
+!!             image_tag editor.logo unless editor.logo.nil?
+             end
+!!           column :wikipedia_url do |editor|
+!!             link_to(I18n.t('wikipedia_url'), editor.wikipedia_url) unless editor.wikipedia_url.nil?
+             end
+!!           column :website do |editor|
+!!             link_to(I18n.t('website'), editor.website) unless editor.website.nil?
+             end
+           end
+         end
+       end  
+     end
+   end
+
+================================================================================
+ ./app/admin/dashboards.rb
+================================================================================
+   ActiveAdmin::Dashboards.build do
+   
+     # Define your dashboard sections here. Each block will be
+     # rendered on the dashboard in the context of the view. So just
+     # return the content which you would like to display.
+     
+     # == Simple Dashboard Section
+     # Here is an example of a simple dashboard section
+     #
+     #   section "Recent Posts" do
+     #     ul do
+     #       Post.recent(5).collect do |post|
+     #         li link_to(post.title, admin_post_path(post))
+     #       end
+     #     end
+     #   end
+     
+     # == Render Partial Section
+     # The block is rendered within the context of the view, so you can
+     # easily render a partial rather than build content in ruby.
+     #
+     #   section "Recent Posts" do
+     #     div do
+     #       render 'recent_posts' # => this will render /app/views/admin/dashboard/_recent_posts.html.erb
+     #     end
+     #   end
+     
+     # == Section Ordering
+     # The dashboard sections are ordered by a given priority from top left to
+     # bottom right. The default priority is 10. By giving a section numerically lower
+     # priority it will be sorted higher. For example:
+     #
+     #   section "Recent Posts", :priority => 10
+     #   section "Recent User", :priority => 1
+     #
+     # Will render the "Recent Users" then the "Recent Posts" sections on the dashboard.
+   
+      section "Menu" do
+!!      ul do
+!!        li link_to "Books", admin_books_path
+!!        li link_to "Authors", admin_authors_path
+!!        li link_to "Users", admin_users_path
+!!        li link_to "Editors", admin_editors_path
+!!        li link_to "Editions", admin_editions_path
+        end
+      end
+   
+   end
+
+================================================================================
+ ./app/admin/editions.rb
+================================================================================
+   ActiveAdmin.register Edition do
+     index do
+!!     column "Image" do |edition|
+!!       image_tag edition.image_url
+       end
+!!     column :book do |edition|
+!!       edition.book.title
+       end
+!!     column :editor do |edition|
+!!       edition.editor.name
+       end
+!!     column :isbn13
+!!     column :price, :sortable => :price do |edition|
+!!       case edition.currency
+         when "EUR"
+!!         number_to_currency edition.price, :unit => "&euro;"
+         else
+!!         edition.price
+         end
+       end
+!!     default_actions
+     end
+     
+   end
+
+================================================================================
+ ./app/admin/editors.rb
+================================================================================
+   ActiveAdmin.register Editor do
+     index do
+!!     column :name
+!!     column "Website" do |editor|
+!!       link_to editor.website unless editor.website.nil?
+       end
+!!     column "Logo" do |editor|
+!!       image_tag editor.logo, {:alt => "#{editor.name} logo", :size =>"40x40"}  unless editor.logo.nil?
+       end
+!!     column "Wikipedia Url" do |editor|
+!!       link_to editor.wikipedia_url unless editor.wikipedia_url.nil?
+       end
+!!     default_actions
+     end
+      
+     show do
+!!     attributes_table *default_attribute_table_rows
+!!     div :class => "panel" do
+!!       h3 "Editor's books"
+!!       div :class => "panel_contents" do
+!!         table_for(editor.editions, {:class => "index_table"}) do
+!!           column "Title" do |e| 
+!!             e.book.title
+             end
+!!           column "front" do |e|
+!!             image_tag e.image_url
+             end
+!!           column :isbn13
+!!           column :year
+!!           column "Description" do |e| 
+!!             e.book.description
+             end
+!!           column "Wikipedia_url" do |e| 
+!!             link_to e.book.wikipedia_url unless e.book.wikipedia_url.nil?
+             end
+!!           column "Rating_average" do |e| 
+!!             e.book.rating_average
+             end
+!!           column "amazon_url" do |e|
+!!             link_to e.amazon_url unless e.amazon_url.nil?
+             end
+!!           column :price
+!!           column :currency
+!!           column "" do |e|
+!!             link_to(I18n.t('active_admin.view'), admin_book_path(e.book), :class => "member_link view_link")
+             end
+           end
+         end
+       end
+     end
+   end
+
+================================================================================
+ ./app/admin/users.rb
+================================================================================
+   ActiveAdmin.register User do
+     index do
+!!     column :email
+!!     column :current_sign_in_at
+!!     default_actions
+     end
+   
+     show do
+!!     attributes_table *default_attribute_table_rows
+   
+!!     unless user.read_editions.empty?
+!!       div :class => "panel" do
+!!         h3 "User's read books"
+!!         div :class => "panel_contents" do
+!!           table_for(user.read_editions, {:class => "index_table"}) do
+!!             column "Title" do |e| 
+!!               link_to e.book.title, admin_book_path(e.book), :class => "member_link view_link"
+               end
+!!             column "front" do |e|
+!!               link_to(image_tag(e.image_url), admin_edition_path(e), :class => "member_link view_link")
+               end
+!!             column :isbn13 do |e|
+!!               link_to e.isbn13, admin_edition_path(e), :class => "member_link view_link"
+               end
+!!             column :year
+!!             column "Description" do |e| 
+!!               e.book.description
+               end
+!!             column "Wikipedia_url" do |e| 
+!!               link_to e.book.wikipedia_url unless e.book.wikipedia_url.nil?
+               end
+!!             column "Rating_average" do |e| 
+!!               e.book.rating_average
+               end
+!!             column "amazon_url" do |e|
+!!               link_to e.amazon_url unless e.amazon_url.nil?
+               end
+!!             column :price
+!!             column :currency
+             end
+           end
+         end
+       end
+   
+   
+!!     unless user.owned_editions.empty?
+!!       div :class => "panel" do
+!!         h3 "User's owned books"
+!!         div :class => "panel_contents" do
+!!           table_for(user.owned_editions, {:class => "index_table"}) do
+!!             column "Title" do |e| 
+!!               e.book.title
+               end
+!!             column "front" do |e|
+!!               image_tag e.image_url
+               end
+!!             column :isbn13
+!!             column :year
+!!             column "Description" do |e| 
+!!               e.book.description
+               end
+!!             column "Wikipedia_url" do |e| 
+!!               link_to e.book.wikipedia_url unless e.book.wikipedia_url.nil?
+               end
+!!             column "Rating_average" do |e| 
+!!               e.book.rating_average
+               end
+!!             column "amazon_url" do |e|
+!!               link_to e.amazon_url unless e.amazon_url.nil?
+               end
+!!             column :price
+!!             column :currency
+!!             column "" do |e|
+!!               link_to(I18n.t('active_admin.view'), admin_book_path(e.book), :class => "member_link view_link")
+               end
+             end
+           end
+         end  
+       end
+     end
+   end
+
+================================================================================
+ ./app/controllers/application_controller.rb
+================================================================================
+   class ApplicationController < ActionController::Base
+     protect_from_forgery
+   end
+
+================================================================================
+ ./app/helpers/application_helper.rb
+================================================================================
+   module ApplicationHelper
+     include Rack::Recaptcha::Helpers
+   end
+
+================================================================================
+ ./app/helpers/authors_helper.rb
+================================================================================
+   module AuthorsHelper
+   end
+
+================================================================================
+ ./app/helpers/books_helper.rb
+================================================================================
+   module BooksHelper
+   end
+
+================================================================================
+ ./app/helpers/index_helper.rb
+================================================================================
+   module IndexHelper
+   end
+
+================================================================================
+ ./app/helpers/owned_books_helper.rb
+================================================================================
+   module OwnedBooksHelper
+   end
+
+================================================================================
+ ./app/helpers/read_books_helper.rb
+================================================================================
+   module ReadBooksHelper
+   end
+
+================================================================================
+ ./app/helpers/readings_helper.rb
+================================================================================
+   module ReadingsHelper
+   end
+
+================================================================================
+ ./app/helpers/users_helper.rb
+================================================================================
+   module UsersHelper
+   end
+
+================================================================================
+ ./app/models/admin_user.rb
+================================================================================
+   class AdminUser < ActiveRecord::Base
+     # Include default devise modules. Others available are:
+     # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+     devise :database_authenticatable, 
+            :recoverable, :rememberable, :trackable, :validatable
+   
+     # Setup accessible (or protected) attributes for your model
+     attr_accessible :email, :password, :password_confirmation, :remember_me
+   end
+
+================================================================================
+ ./app/models/author.rb
+================================================================================
+   class Author  < ActiveRecord::Base
+   
+   
+      has_and_belongs_to_many :books
+   
+   end
+
+================================================================================
+ ./app/models/book.rb
+================================================================================
+   class Book  < ActiveRecord::Base
+     ajaxful_rateable :stars => 5
+   
+     has_and_belongs_to_many :authors
+     has_many :editions
+     has_many :editors, :through => :editions
+   
+     def owners
+       owners = []
+       editions.each {|e| owners += e.owners}
+       owners.uniq{|o| o.id}
+     end
+   
+     def readers
+       readers = []
+       editions.each {|e| readers += e.readers}
+       readers.uniq{|r| r.id}
+     end
+   
+     def author
+       unless authors.empty?
+         authors.map{|author| author.name}.join(", ")
+       else
+         ""
+       end
+     end
+   
+     def self.search(query)
+       Rails.logger.debug "Searching query #{query}"
+       unless query.nil? || query == ""
+         is_isbn = false
+         if StdNum::ISBN.valid?(query)
+           is_isbn = true
+           edition = Edition.where(:isbn13 =>  StdNum::ISBN.convert_to_13(query)).first
+           return [edition] unless edition.nil?
+         end
+         query = is_isbn ?  StdNum::ISBN.convert_to_13(query) : query
+         res = Amazon::Ecs.item_search( query,
+                                       { :country => 'fr', :response_group => "Medium"})
+         Rails.logger.debug "Result for the query: "
+         Rails.logger.debug res.to_s
+         if res.total_results >= 1
+           result = []
+           res.items.each do |item|
+             item_attributes = item.get_element "ItemAttributes"
+             unless item_attributes.get("ProductGroup") != "Book"
+               edition = Edition.where(:isbn13 =>  StdNum::ISBN.convert_to_13( item_attributes.get("EAN"))).first
+               if edition.nil?
+                 edition = Edition.where(:isbn10 =>  StdNum::ISBN.convert_to_10( item_attributes.get("ISBN"))).first unless  item_attributes.get("ISBN").nil?
+                 if edition.nil?
+                   book = Book.find_or_create_by_title(Book.get(item_attributes,"Title"))
+                   authors = Book.get_array(item_attributes,("Author"))
+                   unless authors.nil?
+                     authors.each do |author|
+                       known_author = Author.find_or_create_by_name(:name => author)
+                       book.authors << known_author unless book.authors.include?(known_author)
+                       book.save!
+                     end
+                   end
+                   editor = Editor.find_or_create_by_name(Book.get(item_attributes,("Label")))
+                   unless item_attributes.get("PublicationDate").nil?
+                     date = case item_attributes.get("PublicationDate").split("-").size
+                            when 1 
+!!                            DateTime.civil(item_attributes.get("PublicationDate").to_i)
+                            when 2 
+!!                            DateTime.civil(item_attributes.get("PublicationDate").split("-")[0].to_i,
+                                             item_attributes.get("PublicationDate").split("-")[1].to_i)
+                            when 3 
+                              DateTime.civil(item_attributes.get("PublicationDate").split("-")[0].to_i,
+                                             item_attributes.get("PublicationDate").split("-")[1].to_i,
+                                             item_attributes.get("PublicationDate").split("-")[2].to_i)
+                            else 
+!!                            nil
+                            end
+                   end
+                   image = item.get_hash("SmallImage")["URL"] unless item.get_hash("SmallImage").nil?
+                   url = item.get "DetailPageURL"
+                   price = item_attributes.get_hash("ListPrice")["Amount"].to_i / 100.0 unless item_attributes.get_hash("ListPrice").nil?
+                   currency = item_attributes.get_hash("ListPrice")["CurrencyCode"] unless item_attributes.get_hash("ListPrice").nil?
+                   edition = Edition.create(:book => book,
+                                            :editor => editor,
+                                            :isbn10 => item_attributes.get("ISBN").nil? ? nil : StdNum::ISBN.convert_to_10( item_attributes.get("ISBN")) ,
+                                            :isbn13 => StdNum::ISBN.convert_to_13( item_attributes.get("EAN")),
+                                            :image_url =>  image,
+                                            :year => date,
+                                            :amazon_url => url,
+                                            :currency => currency,
+                                            :price => price)
+                 end
+               end
+               result << edition
+             end
+           end
+           Rails.logger.debug "End searching query #{query}: #{result.count} items found"
+           return result
+         else
+           Rails.logger.debug "End searching query #{query}: result is emptyi (result given by Amazon is empty)"
+           return []
+         end
+       else
+        Rails.logger.debug "End searching query #{query}: result is empty (query was empty or nil)"
+         return []
+       end
+!!     Rails.logger.debug "End searching query #{query}: we shouldn't end here..."
+     end
+   
+     private
+     def self.get(attribute,element)
+       (attribute./element).first.children.first.content unless (attribute./element).nil?
+     end
+   
+     def self.get_array(attribute,element)
+       (attribute./element).map{|el| el.children.first.content} unless (attribute./element).nil?
+     end
+   end
+
+================================================================================
+ ./app/models/edition.rb
+================================================================================
+   class Edition  < ActiveRecord::Base
+   
+     belongs_to :book, :counter_cache => true
+     belongs_to :editor
+   
+     has_many :readings, :foreign_key => "read_edition_id"
+     has_many :readers, :through => :readings, :class_name => "User"
+     has_many :ownings, :foreign_key => "owned_edition_id"
+     has_many :owners, :through => :ownings, :class_name => "User"
+   end
+
+================================================================================
+ ./app/models/editor.rb
+================================================================================
+   class Editor  < ActiveRecord::Base
+   
+     has_many :editions
+     has_many :books, :through => :editions
+   end
+
+================================================================================
+ ./app/models/owning.rb
+================================================================================
+   class Owning < ActiveRecord::Base
+     after_create :increment_book_counter
+     after_destroy :decrement_book_counter
+     belongs_to :owned_edition, :class_name => "Edition", :counter_cache => true
+     belongs_to :owner, :class_name => "User", :counter_cache => true
+   
+     private
+       def increment_book_counter
+         self.owned_edition.book.owned_count += 1
+         self.owned_edition.book.save!
+       end
+   
+       def decrement_book_counter
+!!       self.owned_edition.book.owned_count -= 1
+!!       self.owned_edition.book.save!
+       end
+   end
+
+================================================================================
+ ./app/models/rate.rb
+================================================================================
+   class Rate < ActiveRecord::Base
+     belongs_to :rater, :class_name => "User"
+     belongs_to :rateable, :polymorphic => true
+      validates_numericality_of :stars, :minimum => 1
+     
+     attr_accessible :rate, :dimension
+   end
+
+================================================================================
+ ./app/models/reading.rb
+================================================================================
+   class Reading < ActiveRecord::Base
+     after_create :increment_book_counter
+     after_destroy :decrement_book_counter
+     belongs_to :read_edition, :class_name => "Edition", :counter_cache => true
+     belongs_to :reader, :class_name => "User", :counter_cache => true
+   
+     private
+       def increment_book_counter
+         self.read_edition.book.read_count += 1
+         self.read_edition.book.save!
+       end
+   
+       def decrement_book_counter
+!!       self.read_edition.book.read_count -= 1
+!!       self.read_edition.book.save!
+       end
+   end
+
+================================================================================
+ ./app/models/user.rb
+================================================================================
+   class User  < ActiveRecord::Base
+     # Include default devise modules. Others available are:
+     # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+     devise :database_authenticatable, :registerable,
+            :recoverable, :rememberable, :trackable, :validatable
+   
+     # Setup accessible (or protected) attributes for your model
+     attr_accessible :email, :password, :password_confirmation, :remember_me
+   
+     ajaxful_rater
+   
+     has_many :readings, :foreign_key => "reader_id"
+     has_many :read_editions, :through => :readings, :class_name => "Edition"
+     has_many :ownings, :foreign_key => "owner_id"
+     has_many :owned_editions, :through => :ownings, :class_name => "Edition"
+   
+     def edition(book)
+!!     editions = (read_editions + owned_editions).uniq{|e| e.id}
+!!     editions.each do |edition|
+!!       if edition.book.id == book.id
+!!         return edition
+         end
+       end
+       return nil
+     end
+   
+   end
+

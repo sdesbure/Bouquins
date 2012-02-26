@@ -1,0 +1,31 @@
+= render "/users/sub_nav"
+
+%h2 livres m'appartenant
+%table.table
+  %tr
+    %th Image
+    %th Titre
+    %th Auteur
+    %th Ma Note
+    %th Moyenne
+    %th
+    %th
+  - @owned_editions.each do |owned_edition|
+    %tr
+      %td= image_tag owned_edition.image_url unless owned_edition.image_url.nil?
+      %td= owned_edition.book.title
+      %td= owned_edition.book.author
+      %td
+        - if @user.read_editions.include? owned_edition
+          = ratings_for owned_edition.book, :show_user_rating => true, :size => "small"
+      %td= ratings_for owned_edition.book, :static, :size => "small"
+      %td
+        - unless @user.read_editions.include? owned_edition
+          = form_tag readings_path do
+            = hidden_field_tag 'reading[read_edition_id]', "#{owned_edition.id}", :id => "reading_read_edition_id"
+            = hidden_field_tag 'reading[reader_id]', "#{@user.id}", :id => "reading_reader_id"
+            = submit_tag "Je l'ai lu"
+      %td
+        = link_to 'Enlever', user_owned_book_path(@user,owned_edition), :confirm => "Êtes-vous sur ?", :method => :delete
+
+= link_to 'Retour', user_path(@user)

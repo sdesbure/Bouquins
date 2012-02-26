@@ -1,0 +1,111 @@
+body
+  background-color: $blueprint-background-color
+  .wrap
+    #header, #footer, #top-nav, #sub-nav
+      +column(24,true)
+    #sub-nav, #header,#search
+      border-bottom: 1px $default-rhythm-border-style $blueprint-border-color
+      +box-shadow( rgba(255, 255, 255, 0.07) 0 1px 0)
+    #search
+      padding-bottom:  $base-line-height / 2
+    a
+      color: $taupe
+      &:visited
+        color: $silk
+    
+    padding-top: $base-line-height
+    #top-nav
+      ul
+        border: 0 none
+        margin: 0
+        overflow: hidden
+        padding: 0
+        float: right
+        li
+          display: inline
+          list-style-image: none
+          list-style-type: none
+          margin-left: 0
+          margin-right: 5
+          white-space: nowrap
+
+    #header
+      border-width: 4px
+      .main-nav
+        display: inline-block
+        line-height: 2em
+        a
+          color: white
+        ul
+          border: 0 none
+          margin: 0
+          overflow: hidden
+          padding: 0
+          li
+            display: inline
+            float: left
+            list-style-image: none
+            list-style-type: none
+            margin-left: 0
+            white-space: nowrap
+            padding-left: $base-line-height/2
+            a
+              text-decoration: none
+          .current
+            a
+              color: $brown
+      +header-text
+      font-size: 1.5em
+    
+    #content
+      +column(24)
+      .table
+        background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3)
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 7px 0 rgba(0, 0, 0, 0.8) inset
+        +round-corners(4px)
+      #sub-nav
+        .sub-nav
+          display: inline-block
+          line-height: 1.5em
+          ul
+            border: 0 none
+            margin: 0
+            overflow: visible
+            padding: 0
+            li
+              display: inline
+              float: left
+              list-style-image: none
+              list-style-type: none
+              margin-left: 0
+              white-space: nowrap
+              padding-left: $base-line-height/3
+              a
+                text-decoration: none
+                color: $font-color
+            li.current
+              position: relative
+              a
+                color: $brown
+      #left-table
+        table.table
+          table-layout: fixed
+        +column(12)
+      #right-table
+        table.table
+          table-layout: fixed
+        +column(12,true)
+      #feedback
+        +column(24)
+        +blueprint-interaction
+      #sidebar
+        +column(6)
+      #main
+        +column(18, true)
+      #news
+        .date
+          font-style: italic
+          float: right
+    +container
++establish-baseline
++blueprint-typography

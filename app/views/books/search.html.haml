@@ -1,0 +1,48 @@
+#search
+  %h2 Recherche de livres
+  = form_tag(search_books_path, :method => "get") do 
+    = text_field_tag(:q, @query) 
+    = submit_tag("Rechercher") 
+
+- unless @query.nil?
+  %h3 Résultats
+  %table.table
+    %tr
+      %th Image
+      %th ISBN
+      %th Titre
+      %th Auteur
+      - if user_signed_in?
+        %th Ma Note
+      %th Moyenne
+      - if user_signed_in?
+        %th
+        %th
+      %th
+    - @editions.each do |edition|
+      %tr
+        %td= image_tag(edition.image_url) unless edition.image_url.nil?
+        %td= edition.isbn13.nil? ? edition.isbn10 : edition.isbn13
+        %td= edition.book.title
+        %td= edition.book.author
+        - if user_signed_in?
+          %td
+            - if current_user.read_editions.map{|re| re.book}.include? edition.book
+              = ratings_for edition.book, :show_user_rating => true, :size => "small"
+        %td= ratings_for edition.book, :static, :size => "small"
+        - if user_signed_in?
+          %td
+            - unless current_user.read_editions.include? edition
+              = form_tag readings_path do
+                = hidden_field_tag "reading[read_edition_id]", "#{edition.id}", :id => "reading_read_edition_id"
+                = hidden_field_tag "reading[reader_id]", "#{current_user.id}", :id => "reading_reader_id"
+                = submit_tag "Je l'ai lu"
+          %td
+            - unless current_user.owned_editions.include? edition
+              = form_tag ownings_path do
+                = hidden_field_tag 'owning[owned_edition_id]', "#{edition.id}", :id => "owning_owned_edition_id"
+                = hidden_field_tag 'owning[owner_id]', "#{current_user.id}", :id => "owning_owner_id"              
+                = submit_tag "Je le possède"
+        %td
+          - unless user_signed_in? && current_user.owned_editions.include?(edition)
+            = link_to "L'acheter", edition.amazon_url

@@ -1,0 +1,60 @@
+= render "/users/sub_nav"
+%h2 Rechercher un livre
+= form_tag(search_books_path, :method => "get") do 
+  = text_field_tag(:q) 
+  = submit_tag("Rechercher") 
+
+#left-table
+  %h2 5 derniers livres lus
+  %table.table
+    %tr
+      %th Titre
+      %th Auteur
+      %th Ma Note
+      %th
+      %th
+    - @read_editions.each do |read_edition|
+      %tr
+        %td= read_edition.book.title
+        %td= read_edition.book.author
+        %td= ratings_for read_edition.book, :show_user_rating => true, :size => "small"
+        %td
+          - unless @user.owned_editions.include? read_edition
+            = form_tag ownings_path do
+              = hidden_field_tag 'owning[owned_edition_id]', "#{read_edition.id}", :id => "owning_owned_edition_id"
+              = hidden_field_tag 'owning[owner_id]', "#{@user.id}", :id => "owning_owner_id"              
+              = submit_tag "Je le possède"
+        %td
+          - unless @user.owned_editions.include?(read_edition)
+            = link_to "L'acheter", read_edition.amazon_url
+
+  - if @more_than_5_read
+    = link_to 'Voir tous les livres lus', user_read_books_path(@user)
+
+#right-table
+  %h2 5 derniers livres achetés
+  %table.table
+    %tr
+      %th Titre
+      %th Auteur
+      %th Moyenne
+      %th
+    - @owned_editions.each do |owned_edition|
+      %tr
+        %td= owned_edition.book.title
+        %td= owned_edition.book.author
+        %td= ratings_for owned_edition.book, :static, :size => "small"
+        %td
+          - unless @user.read_editions.include? owned_edition
+            = form_tag readings_path do
+              = hidden_field_tag 'reading[read_edition_id]', "#{owned_edition.id}", :id => "reading_read_edition_id"
+              = hidden_field_tag 'reading[reader_id]', "#{@user.id}", :id => "reading_reader_id"
+              = submit_tag "Je l'ai lu"
+  
+  - if @more_than_5_owned
+    = link_to 'Voir tous les livres m\'appartenant', user_owned_books_path(@user)
+
+
+-# = link_to 'Edit', edit_user_path(@user)
+-# \|
+-# = link_to 'Back', users_path
